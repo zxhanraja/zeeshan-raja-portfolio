@@ -1,17 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // State for form inputs and validation
+  const [formValues, setFormValues] = useState({ name: '', email: '', message: '' });
+  const [isFormValid, setIsFormValid] = useState(false);
+
   // Web3Forms Access Key
   const accessKey = "2a3e3b3e-c365-4dbb-b8a9-386ed001d25f";
+
+  // Effect to validate the form whenever inputs change
+  useEffect(() => {
+    const { name, email, message } = formValues;
+    // Basic email regex for validation
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isFormComplete = name.trim() !== '' && message.trim() !== '' && email.trim() !== '';
+    setIsFormValid(isFormComplete && isEmailValid);
+  }, [formValues]);
+
+  // Handler for input changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormValues(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
+
+    // An extra check, though the button should be disabled.
+    if (!isFormValid) {
+        setIsSubmitting(false); // Stop submission process
+        setError("Please fill out all fields with valid information.");
+        return;
+    }
 
     const formData = new FormData(e.target as HTMLFormElement);
     formData.append("access_key", accessKey);
@@ -32,6 +58,7 @@ const Contact = () => {
       if (data.success) {
         setSubmitted(true);
         (e.target as HTMLFormElement).reset();
+        setFormValues({ name: '', email: '', message: '' }); // Reset React state
       } else {
         console.error("Error from Web3Forms:", data);
         setError(data.message || "An error occurred while sending the message. Please try again.");
@@ -61,21 +88,21 @@ const Contact = () => {
             <form onSubmit={handleSubmit} noValidate>
               <div className="mb-6">
                 <label htmlFor="name" className="block text-sm font-bold text-[#6B6258] dark:text-[#D1CAC2] mb-2">Full Name</label>
-                <input required type="text" id="name" name="name" className="w-full px-4 py-3 bg-[#F8F5F2] dark:bg-[#1C1A19] text-[#4B4237] dark:text-[#FDFBFA] rounded-md border border-[#D1CAC2] dark:border-[#4B4237] focus:outline-none focus:ring-2 focus:ring-[#A68A68] transition-colors" placeholder="Your Name" />
+                <input required type="text" id="name" name="name" value={formValues.name} onChange={handleChange} className="w-full px-4 py-3 bg-[#F8F5F2] dark:bg-[#1C1A19] text-[#4B4237] dark:text-[#FDFBFA] rounded-md border border-[#D1CAC2] dark:border-[#4B4237] focus:outline-none focus:ring-2 focus:ring-[#A68A68] transition-colors" placeholder="Your Name" />
               </div>
               <div className="mb-6">
                 <label htmlFor="email" className="block text-sm font-bold text-[#6B6258] dark:text-[#D1CAC2] mb-2">Email Address</label>
-                <input required type="email" id="email" name="email" className="w-full px-4 py-3 bg-[#F8F5F2] dark:bg-[#1C1A19] text-[#4B4237] dark:text-[#FDFBFA] rounded-md border border-[#D1CAC2] dark:border-[#4B4237] focus:outline-none focus:ring-2 focus:ring-[#A68A68] transition-colors" placeholder="your.email@example.com" />
+                <input required type="email" id="email" name="email" value={formValues.email} onChange={handleChange} className="w-full px-4 py-3 bg-[#F8F5F2] dark:bg-[#1C1A19] text-[#4B4237] dark:text-[#FDFBFA] rounded-md border border-[#D1CAC2] dark:border-[#4B4237] focus:outline-none focus:ring-2 focus:ring-[#A68A68] transition-colors" placeholder="your.email@example.com" />
               </div>
               <div className="mb-8">
                 <label htmlFor="message" className="block text-sm font-bold text-[#6B6258] dark:text-[#D1CAC2] mb-2">Message</label>
-                <textarea required id="message" name="message" rows={5} className="w-full px-4 py-3 bg-[#F8F5F2] dark:bg-[#1C1A19] text-[#4B4237] dark:text-[#FDFBFA] rounded-md border border-[#D1CAC2] dark:border-[#4B4237] focus:outline-none focus:ring-2 focus:ring-[#A68A68] transition-colors" placeholder="Your message..."></textarea>
+                <textarea required id="message" name="message" rows={5} value={formValues.message} onChange={handleChange} className="w-full px-4 py-3 bg-[#F8F5F2] dark:bg-[#1C1A19] text-[#4B4237] dark:text-[#FDFBFA] rounded-md border border-[#D1CAC2] dark:border-[#4B4237] focus:outline-none focus:ring-2 focus:ring-[#A68A68] transition-colors" placeholder="Your message..."></textarea>
               </div>
               <div className="text-center">
                 <button 
                   type="submit" 
-                  disabled={isSubmitting}
-                  className="w-full sm:w-auto px-10 py-4 font-bold text-white bg-[#A68A68] rounded-full hover:bg-[#8e7558] transition-all duration-300 disabled:bg-slate-400 disabled:cursor-not-allowed"
+                  disabled={isSubmitting || !isFormValid}
+                  className="w-full sm:w-auto px-10 py-4 font-bold text-white bg-[#A68A68] rounded-full hover:bg-[#8e7558] transition-all duration-300 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>

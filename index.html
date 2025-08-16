@@ -45,6 +45,22 @@
         transform-origin: left;
         animation: fill-bar 2.2s ease-out forwards;
       }
+      /* Custom styles to override browser autofill background */
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover, 
+      input:-webkit-autofill:focus, 
+      input:-webkit-autofill:active {
+          -webkit-text-fill-color: #4B4237 !important; /* Light mode text */
+          box-shadow: 0 0 0 30px #F8F5F2 inset !important; /* Light mode background */
+          transition: background-color 5000s ease-in-out 0s;
+      }
+      .dark input:-webkit-autofill,
+      .dark input:-webkit-autofill:hover, 
+      .dark input:-webkit-autofill:focus, 
+      .dark input:-webkit-autofill:active {
+          -webkit-text-fill-color: #FDFBFA !important; /* Dark mode text */
+          box-shadow: 0 0 0 30px #1C1A19 inset !important; /* Dark mode background */
+      }
     </style>
   <script type="importmap">
 {
