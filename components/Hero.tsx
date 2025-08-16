@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-// Using the user-provided video URL and a new poster image for smooth loading.
+// Using the user-provided video URL.
 const DUBAI_VIDEO_URL = 'https://ik.imagekit.io/zgmzllqewo/108522-681143783.mp4?updatedAt=1755240067238';
-const DUBAI_POSTER_URL = 'https://images.unsplash.com/photo-1531218150217-54595bc2b934?q=80&w=1920&auto=format&fit=crop';
-
 
 // Phrases for the typing animation
 const phrasesToRotate = [
@@ -90,8 +88,7 @@ const Hero = () => {
   return (
     <section 
       id="home" 
-      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden text-white bg-cover bg-center"
-      style={{ backgroundImage: `url(${DUBAI_POSTER_URL})` }}
+      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden text-white bg-black"
     >
       {/* Background Video */}
       <video
