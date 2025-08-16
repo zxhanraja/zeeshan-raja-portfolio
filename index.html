@@ -8,6 +8,19 @@
     <meta name="description" content="The professional portfolio of Zeeshan Raja, a passionate and skilled real estate professional based in Dubai.">
     <meta name="keywords" content="real estate, portfolio, zeeshan raja, dubai, property">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Apply dark mode class before page load to prevent flashing
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+
+      // Configure Tailwind to use the 'class' strategy for dark mode
+      tailwind.config = {
+        darkMode: 'class',
+      };
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap" rel="stylesheet">

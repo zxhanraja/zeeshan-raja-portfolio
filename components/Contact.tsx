@@ -45,31 +45,31 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-[#F8F5F2]">
+    <section id="contact" className="py-20 md:py-32 bg-[#F8F5F2] dark:bg-[#1C1A19]">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#4B4237]">Get In Touch</h2>
-          <p className="text-lg text-[#6B6258] mt-2">I'm ready to discuss how I can contribute to your team. Let's connect.</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#4B4237] dark:text-[#FDFBFA]">Get In Touch</h2>
+          <p className="text-lg text-[#6B6258] dark:text-[#D1CAC2] mt-2">I'm ready to discuss how I can contribute to your team. Let's connect.</p>
         </div>
-        <div className="max-w-2xl mx-auto bg-[#EAE6E1] p-8 md:p-12 rounded-lg shadow-xl transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-2">
+        <div className="max-w-2xl mx-auto bg-[#EAE6E1] dark:bg-[#2C2722] p-8 md:p-12 rounded-lg shadow-xl dark:shadow-2xl dark:shadow-black/50 transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-2">
           {submitted ? (
             <div className="text-center p-4">
               <h3 className="text-2xl font-bold text-[#A68A68]">Thank you!</h3>
-              <p className="text-[#6B6258] mt-2">Your message has been sent. I will get back to you shortly.</p>
+              <p className="text-[#6B6258] dark:text-[#D1CAC2] mt-2">Your message has been sent. I will get back to you shortly.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate>
               <div className="mb-6">
-                <label htmlFor="name" className="block text-sm font-bold text-[#6B6258] mb-2">Full Name</label>
-                <input required type="text" id="name" name="name" className="w-full px-4 py-3 bg-[#F8F5F2] text-[#4B4237] rounded-md border border-[#D1CAC2] focus:outline-none focus:ring-2 focus:ring-[#A68A68] transition-colors" placeholder="Your Name" />
+                <label htmlFor="name" className="block text-sm font-bold text-[#6B6258] dark:text-[#D1CAC2] mb-2">Full Name</label>
+                <input required type="text" id="name" name="name" className="w-full px-4 py-3 bg-[#F8F5F2] dark:bg-[#1C1A19] text-[#4B4237] dark:text-[#FDFBFA] rounded-md border border-[#D1CAC2] dark:border-[#4B4237] focus:outline-none focus:ring-2 focus:ring-[#A68A68] transition-colors" placeholder="Your Name" />
               </div>
               <div className="mb-6">
-                <label htmlFor="email" className="block text-sm font-bold text-[#6B6258] mb-2">Email Address</label>
-                <input required type="email" id="email" name="email" className="w-full px-4 py-3 bg-[#F8F5F2] text-[#4B4237] rounded-md border border-[#D1CAC2] focus:outline-none focus:ring-2 focus:ring-[#A68A68] transition-colors" placeholder="your.email@example.com" />
+                <label htmlFor="email" className="block text-sm font-bold text-[#6B6258] dark:text-[#D1CAC2] mb-2">Email Address</label>
+                <input required type="email" id="email" name="email" className="w-full px-4 py-3 bg-[#F8F5F2] dark:bg-[#1C1A19] text-[#4B4237] dark:text-[#FDFBFA] rounded-md border border-[#D1CAC2] dark:border-[#4B4237] focus:outline-none focus:ring-2 focus:ring-[#A68A68] transition-colors" placeholder="your.email@example.com" />
               </div>
               <div className="mb-8">
-                <label htmlFor="message" className="block text-sm font-bold text-[#6B6258] mb-2">Message</label>
-                <textarea required id="message" name="message" rows={5} className="w-full px-4 py-3 bg-[#F8F5F2] text-[#4B4237] rounded-md border border-[#D1CAC2] focus:outline-none focus:ring-2 focus:ring-[#A68A68] transition-colors" placeholder="Your message..."></textarea>
+                <label htmlFor="message" className="block text-sm font-bold text-[#6B6258] dark:text-[#D1CAC2] mb-2">Message</label>
+                <textarea required id="message" name="message" rows={5} className="w-full px-4 py-3 bg-[#F8F5F2] dark:bg-[#1C1A19] text-[#4B4237] dark:text-[#FDFBFA] rounded-md border border-[#D1CAC2] dark:border-[#4B4237] focus:outline-none focus:ring-2 focus:ring-[#A68A68] transition-colors" placeholder="Your message..."></textarea>
               </div>
               <div className="text-center">
                 <button 

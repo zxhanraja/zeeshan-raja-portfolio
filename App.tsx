@@ -13,6 +13,33 @@ import Preloader from './components/Preloader.tsx';
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isReady, setIsReady] = useState(false);
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    // This effect runs once on mount to set the initial theme
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else if (systemPrefersDark) {
+      setTheme('dark');
+    }
+  }, []);
+
+  useEffect(() => {
+    // This effect applies the theme class to the HTML element and saves the preference
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
 
   useEffect(() => {
     const PRELOADER_DURATION = 2500; // Time the preloader is fully visible
@@ -37,8 +64,8 @@ function App() {
   return (
     <>
       {isLoading && <Preloader isExiting={isReady} />}
-      <div className={`font-poppins bg-[#F8F5F2] text-[#4B4237] transition-opacity duration-700 ease-in ${isReady ? 'opacity-100' : 'opacity-0'}`}>
-        <Header />
+      <div className={`font-poppins bg-[#F8F5F2] text-[#4B4237] dark:bg-[#1C1A19] dark:text-[#D1CAC2] transition-opacity duration-700 ease-in ${isReady ? 'opacity-100' : 'opacity-0'}`}>
+        <Header theme={theme} toggleTheme={toggleTheme} />
         <main>
           <Hero />
           <About />
